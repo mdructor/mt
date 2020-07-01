@@ -22,3 +22,24 @@
     SOFTWARE.
 */
 
+#include <string>
+
+namespace mt
+{
+
+// primitive class used to hold "Key" information of a Pitch
+class Key
+{
+    public:
+        enum class Type { A, B, C, D, E, F, G };
+        
+        Key (Type keyType = Type::C);
+        Type getType();
+        std::string toString();
+
+    private:
+        Type type;
+
+};
+
+} // namespace mt
