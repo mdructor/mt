@@ -25,7 +25,7 @@
 #pragma once
 
 #include <string>    // std::string
-#include <exception> // std::runtime_error
+#include <stdexcept> // std::runtime_error
 #include <cmath>     // std::pow
 
 namespace mt
