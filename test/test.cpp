@@ -31,7 +31,7 @@ TEST_CASE( "Keys can be made of different types", "[Key]" ) {
     REQUIRE( mt::Key(mt::Key::Type::B).toString() == "B" );
     REQUIRE( mt::Key(mt::Key::Type::C).toString() == "C" );
     REQUIRE( mt::Key(mt::Key::Type::D).toString() == "D" );
-    REQUIRE( mt::Key(mt::Key::Type::D).toString() == "E" );
-    REQUIRE( mt::Key(mt::Key::Type::D).toString() == "F" );
-    REQUIRE( mt::Key(mt::Key::Type::D).toString() == "G" );
+    REQUIRE( mt::Key(mt::Key::Type::E).toString() == "E" );
+    REQUIRE( mt::Key(mt::Key::Type::F).toString() == "F" );
+    REQUIRE( mt::Key(mt::Key::Type::G).toString() == "G" );
 }
