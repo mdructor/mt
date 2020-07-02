@@ -63,22 +63,22 @@ class Accidental
 class Pitch
 {
     public:
-        Pitch( Key k = Key(Key::Type::C), Accidental a = Accidental(Accidental::Type::natural), USHORT o = 4 );
+        Pitch( Key k = Key(Key::Type::C), Accidental a = Accidental(Accidental::Type::natural), unsigned short o = 4 );
         Pitch( std::string val );
-        Pitch( USHORT midi_value, bool use_sharps = true);
+        Pitch( unsigned short midi_value, bool use_sharps = true );
 
         Key getKey();
         Accidental getAccidental();
-        USHORT getOctave();
-        USHORT getMidiValue();
-        static USHORT getMidiValue(std::string val);
+        unsigned short getOctave();
+        unsigned short getMidiValue();
+        unsigned short getMidiValue(std::string val);
         double getFrequency();
         std::string toString();
 
     private:
         Key key;
         Accidental accidental;
-        USHORT octave;
+        unsigned short octave;
 };
 
 } // namespace mt
