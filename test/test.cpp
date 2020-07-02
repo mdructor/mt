@@ -37,11 +37,26 @@ TEST_CASE( "Keys can be made of different types", "[Key]" ) {
 }
 
 TEST_CASE( "Accidentals can be made of different types", "[Accidental]" ) {
-
     REQUIRE( mt::Accidental(mt::Accidental::Type::natural).toString()      == "" );
     REQUIRE( mt::Accidental(mt::Accidental::Type::flat).toString()         == "b" );
     REQUIRE( mt::Accidental(mt::Accidental::Type::double_flat).toString()  == "bb" );
     REQUIRE( mt::Accidental(mt::Accidental::Type::sharp).toString()        == "#" );
     REQUIRE( mt::Accidental(mt::Accidental::Type::double_sharp).toString() == "##" );
+}
 
+TEST_CASE( "Pitches and be made with note information, string, or midi value", "[Pitch]" ) {
+    REQUIRE( mt::Pitch().toString() == "C4" );
+    REQUIRE( mt::Pitch( mt::Key(), mt::Accidental(), 4 ).toString() == "C4" );
+    REQUIRE( mt::Pitch("C4").toString() == "C4" );
+    REQUIRE( mt::Pitch(60).toString() == "C4" );
+}
+
+TEST_CASE( "Pitches can be used to get more information", "[Pitch]" ) {
+    mt::Pitch p("Bb3");
+    REQUIRE( p.getKey().getType() == mt::Key::Type::B);
+    REQUIRE( p.getAccidental().getType() == mt::Accidental::Type::flat );
+    REQUIRE( p.getOctave() == 3 );
+    REQUIRE( p.toString() == "Bb3" );
+    REQUIRE( p.getMidiValue() == 58 );
+    REQUIRE( p.getFrequency() == Approx(233.08) );
 }
