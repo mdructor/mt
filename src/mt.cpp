@@ -51,5 +51,27 @@ std::string Key::toString()
     return "";
 }
 
+Accidental::Accidental(Accidental::Type t)
+{
+    type = t;
+}
+
+Accidental::Type Accidental::getType()
+{
+    return type;
+}
+
+std::string Accidental::toString()
+{
+    switch(type) {
+        case Type::natural: return "";
+        case Type::flat: return "b";
+        case Type::double_flat: return "bb";
+        case Type::sharp: return "#";
+        case Type::double_sharp: return "##";
+    }
+    return "";
+}
+
 
 }
