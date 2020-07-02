@@ -44,4 +44,19 @@ class Key
 
 };
 
+
+// primitive class used to hold the type of Accidental a Pitch has
+class Accidental
+{
+    public:
+        enum class Type { natural, flat, sharp, double_flat, double_sharp };
+
+        Accidental( Type t = Type::natural );
+        Type getType();
+        std::string toString();
+    
+    private:
+        Type type;
+};
+
 } // namespace mt
