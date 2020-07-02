@@ -59,4 +59,26 @@ class Accidental
         Type type;
 };
 
+// class used to hold Pitch information.
+class Pitch
+{
+    public:
+        Pitch( Key k = Key(Key::Type::C), Accidental a = Accidental(Accidental::Type::natural), USHORT o = 4 );
+        Pitch( std::string val );
+        Pitch( USHORT midi_value, bool use_sharps = true);
+
+        Key getKey();
+        Accidental getAccidental();
+        USHORT getOctave();
+        USHORT getMidiValue();
+        static USHORT getMidiValue(std::string val);
+        double getFrequency();
+        std::string toString();
+
+    private:
+        Key key;
+        Accidental accidental;
+        USHORT octave;
+};
+
 } // namespace mt
