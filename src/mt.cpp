@@ -21,3 +21,34 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 */
+
+#include "mt.hpp"
+
+namespace mt 
+{
+
+Key::Key(Key::Type t = Type::C) 
+{
+    type = t;
+}
+
+Key::Type Key::getType() 
+{
+    return type;
+}
+
+std::string Key::toString() 
+{
+    switch(type) {
+        case Type::A: return "A";
+        case Type::B: return "B";
+        case Type::C: return "C";
+        case Type::D: return "D";
+        case Type::E: return "E";
+        case Type::F: return "F";
+        case Type::G: return "G";
+    }
+}
+
+
+}
