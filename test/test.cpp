@@ -35,3 +35,13 @@ TEST_CASE( "Keys can be made of different types", "[Key]" ) {
     REQUIRE( mt::Key(mt::Key::Type::F).toString() == "F" );
     REQUIRE( mt::Key(mt::Key::Type::G).toString() == "G" );
 }
+
+TEST_CASE( "Accidentals can be made of different types", "[Accidental]" ) {
+
+    REQUIRE( mt::Accidental(mt::Accidental::Type::natural).toString()      == "" );
+    REQUIRE( mt::Accidental(mt::Accidental::Type::flat).toString()         == "b" );
+    REQUIRE( mt::Accidental(mt::Accidental::Type::double_flat).toString()  == "bb" );
+    REQUIRE( mt::Accidental(mt::Accidental::Type::sharp).toString()        == "#" );
+    REQUIRE( mt::Accidental(mt::Accidental::Type::double_sharp).toString() == "##" );
+
+}
