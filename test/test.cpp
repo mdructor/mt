@@ -21,3 +21,17 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 */
+
+#define CATCH_CONFIG_MAIN // tells Catch to provide a main()
+#include "../src/mt.hpp"
+#include "catch.hpp"
+
+TEST_CASE( "Keys can be made of different types", "[Key]" ) {
+    REQUIRE( mt::Key(mt::Key::Type::A).toString() == "A" );
+    REQUIRE( mt::Key(mt::Key::Type::B).toString() == "B" );
+    REQUIRE( mt::Key(mt::Key::Type::C).toString() == "C" );
+    REQUIRE( mt::Key(mt::Key::Type::D).toString() == "D" );
+    REQUIRE( mt::Key(mt::Key::Type::D).toString() == "E" );
+    REQUIRE( mt::Key(mt::Key::Type::D).toString() == "F" );
+    REQUIRE( mt::Key(mt::Key::Type::D).toString() == "G" );
+}
