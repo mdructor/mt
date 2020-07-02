@@ -24,7 +24,8 @@
 
 #pragma once
 
-#include <string>
+#include <string>    // std::string
+#include <exception> // std::runtime_error
 
 namespace mt
 {
@@ -79,6 +80,12 @@ class Pitch
         Key key;
         Accidental accidental;
         unsigned short octave;
+};
+
+class NoteParsingException : public std::runtime_error
+{
+    public:
+        NoteParsingException(char const* const message) throw() : std::runtime_error(message) {}
 };
 
 } // namespace mt
