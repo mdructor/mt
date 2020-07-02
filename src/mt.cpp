@@ -27,7 +27,7 @@
 namespace mt 
 {
 
-Key::Key(Key::Type t = Type::C) 
+Key::Key(Key::Type t) 
 {
     type = t;
 }
@@ -48,6 +48,7 @@ std::string Key::toString()
         case Type::F: return "F";
         case Type::G: return "G";
     }
+    return "";
 }
 
 
