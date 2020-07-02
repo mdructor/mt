@@ -26,6 +26,7 @@
 
 #include <string>    // std::string
 #include <exception> // std::runtime_error
+#include <cmath>     // std::pow
 
 namespace mt
 {
@@ -72,7 +73,6 @@ class Pitch
         Accidental getAccidental();
         unsigned short getOctave();
         unsigned short getMidiValue();
-        unsigned short getMidiValue(std::string val);
         double getFrequency();
         std::string toString();
 
@@ -82,10 +82,10 @@ class Pitch
         unsigned short octave;
 };
 
-class NoteParsingException : public std::runtime_error
+class PitchParsingException : public std::runtime_error
 {
     public:
-        NoteParsingException(char const* const message) throw() : std::runtime_error(message) {}
+        PitchParsingException(char const* const message) throw() : std::runtime_error(message) {}
 };
 
 } // namespace mt
