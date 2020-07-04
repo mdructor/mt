@@ -82,6 +82,25 @@ class Pitch
         unsigned short octave;
 };
 
+class Interval
+{
+    public:
+        enum class Quality { perfect, major, minor, augmented, dimished };
+        Interval(Quality q = Quality::perfect, int degree = 1);
+        Interval(int semitones);
+
+        Quality getQuality();
+        int getDegree();
+        int getSemitones();
+        Pitch getPitchFromRoot(Pitch root);
+        std::string toString();
+
+    private:
+        Quality quality;
+        int degree;
+
+};
+
 class PitchParsingException : public std::runtime_error
 {
     public:
