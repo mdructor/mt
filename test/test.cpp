@@ -60,3 +60,11 @@ TEST_CASE( "Pitches can be used to get more information", "[Pitch]" ) {
     REQUIRE( p.getMidiValue() == 58 );
     REQUIRE( p.getFrequency() == Approx(233.08) );
 }
+
+TEST_CASE( "Intervals can be made and used", "[Interval]" ) {
+    mt::Interval i(5);
+    REQUIRE( i.getDegree() == 4 );
+    REQUIRE( i.getQuality() == mt::Interval::Quality::perfect );
+    REQUIRE( i.getSemitones() == 5 );
+    REQUIRE( i.getPitchFromRoot(mt::Pitch()).toString() == "F4");
+}
