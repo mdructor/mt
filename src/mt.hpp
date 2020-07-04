@@ -86,18 +86,18 @@ class Interval
 {
     public:
         enum class Quality { perfect, major, minor, augmented, dimished };
-        Interval(Quality q = Quality::perfect, int degree = 1);
-        Interval(int semitones);
+        Interval(Quality q = Quality::perfect, unsigned short degree = 1);
+        Interval(unsigned short semitones);
 
         Quality getQuality();
-        int getDegree();
-        int getSemitones();
+        unsigned short getDegree();
+        unsigned short getSemitones();
         Pitch getPitchFromRoot(Pitch root);
         std::string toString();
 
     private:
         Quality quality;
-        int degree;
+        unsigned short degree;
 
 };
 
@@ -105,6 +105,12 @@ class PitchParsingException : public std::runtime_error
 {
     public:
         PitchParsingException(char const* const message) throw() : std::runtime_error(message) {}
+};
+
+class InvalidIntervalException : public std::runtime_error
+{
+    public:
+        InvalidIntervalException(char const* const message) throw() : std::runtime_error(message) {}
 };
 
 } // namespace mt
