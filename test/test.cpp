@@ -69,3 +69,12 @@ TEST_CASE( "Intervals can be made and used", "[Interval]" ) {
     REQUIRE( i.getPitchFromRoot(mt::Pitch()).toString() == "F4");
     REQUIRE( i.toString() == "P4" );
 }
+
+TEST_CASE( "Intervals can be compound!", "[Interval]" ) {
+    mt::Interval i(14);
+    REQUIRE( i.getDegree() == 9 );
+    REQUIRE( i . getQuality() == mt::Interval::Quality::major );
+    REQUIRE( i.getSemitones() == 14 );
+    REQUIRE( i.getPitchFromRoot(mt::Pitch()).toString() == "D5");
+    REQUIRE( i.toString() == "M9" );
+}
