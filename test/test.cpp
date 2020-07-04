@@ -67,4 +67,5 @@ TEST_CASE( "Intervals can be made and used", "[Interval]" ) {
     REQUIRE( i.getQuality() == mt::Interval::Quality::perfect );
     REQUIRE( i.getSemitones() == 5 );
     REQUIRE( i.getPitchFromRoot(mt::Pitch()).toString() == "F4");
+    REQUIRE( i.toString() == "P4" );
 }
