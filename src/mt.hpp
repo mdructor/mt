@@ -27,6 +27,7 @@
 #include <string>    // std::string
 #include <stdexcept> // std::runtime_error
 #include <cmath>     // std::pow
+#include <vector>    // std::vector
 
 namespace mt
 {
@@ -99,6 +100,32 @@ class Interval
         Quality quality;
         unsigned short degree;
 
+};
+
+class Scale 
+{
+    public:
+        Scale(std::vector<Interval> intervals);
+
+        std::vector<Interval> getIntervals();
+        
+        std::vector<Pitch> getPitchesFromRoot(Pitch root);
+
+    private:
+        std::vector<Interval> intervals;
+};
+
+class Chord
+{
+    public:
+        Chord(std::vector<Interval> intervals);
+
+        std::vector<Interval> getIntervals();
+
+        std::vector<Pitch> getPitchesFromRoot(Pitch root);
+
+    private:
+        std::vector<Interval> intervals;
 };
 
 class PitchParsingException : public std::runtime_error
