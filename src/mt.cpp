@@ -308,4 +308,177 @@ std::string Pitch::toString()
     return key.toString() + accidental.toString() + std::to_string(octave);
 }
 
+Interval::Interval(Quality q, unsigned short d)
+{
+    std::string error_msg = "Invalid interval error. Need valid quality and degree";
+    quality = q;
+    degree = d;
+
+    if (degree < 1) {
+        throw InvalidIntervalException(error_msg.c_str());
+    }
+
+    if (quality == Quality::perfect) {
+        // octave/unison || 4th || 5ths
+        if (!(degree % 7 == 1 || degree % 7 == 4 || degree % 7 == 5)) { 
+            throw InvalidIntervalException(error_msg.c_str());
+        }
+    }
+    else if (quality == Quality::major || quality == Quality::minor) {
+        if (!(degree % 7 == 2 || degree % 7 == 3 || degree % 7 == 6 || degree % 7 == 7)) {
+            throw InvalidIntervalException(error_msg.c_str());
+        }
+    }
+    else if (quality == Quality::dimished) {
+        if (degree < 2) {
+            throw InvalidIntervalException(error_msg.c_str());
+        }
+    }
+}
+
+Interval::Interval(unsigned short s) 
+{
+    auto r = s % 12;
+    auto q = s / 12;
+
+    switch (r) {
+        case 0:
+            quality = Quality::perfect;
+            degree = 1 + 7 * q;
+            break;
+        case 1:
+            quality = Quality::minor;
+            degree = 2 + 7 * q;
+            break;
+        case 2:
+            quality = Quality::major;
+            degree = 2 + 7 * q;
+            break;
+        case 3:
+            quality = Quality::minor;
+            degree = 3 + 7 * q;
+            break;
+        case 4:
+            quality = Quality::major;
+            degree = 3 + 7 * q;
+            break;
+        case 5:
+            quality = Quality::perfect;
+            degree = 4 + 7 * q;
+            break;
+        case 6:
+            quality = Quality::augmented;
+            degree = 4 + 7 * q;
+            break;
+        case 7:
+            quality = Quality::perfect;
+            degree = 5 + 7 * q;
+            break;
+        case 8:
+            quality = Quality::minor;
+            degree = 6 + 7 * q;
+            break;
+        case 9:
+            quality = Quality::major;
+            degree = 6 + 7 * q;
+            break;
+        case 10:
+            quality = Quality::minor;
+            degree = 7 + 7 * q;
+            break;
+        case 11:
+            quality = Quality::major;
+            degree = 7 + 7 * q;
+            break;
+    }
+}
+
+Interval::Quality Interval::getQuality()
+{
+    return quality;
+}
+
+unsigned short Interval::getDegree()
+{
+    return degree;
+}
+
+unsigned short Interval::getSemitones()
+{
+    if (quality == Quality::perfect) {
+        if (degree % 7 == 1) {
+            return 12 * (degree / 7);
+        }
+        else if (degree % 7 == 4) {
+            return 5 + 12 * (degree / 7);
+        }
+        else if (degree % 7 == 5) {
+            return 7 + 12 * (degree / 7);
+        }
+    }
+    else if (quality == Quality::major) {
+        if (degree % 7 == 2) {
+            return 2 + 12 * (degree / 7);
+        }
+        else if (degree % 7 == 3) {
+            return 4 + 12 * (degree / 7);
+        }
+        else if (degree % 7 == 6) {
+            return 9 + 12 * (degree / 7);
+        }
+        else if (degree % 7 == 7) {
+            return 11 + 12 * (degree / 7);
+        }
+    }
+    else if (quality == Quality::minor) {
+        if (degree % 7 == 2) {
+            return 1 + 12 * (degree / 7);
+        }
+        else if (degree % 7 == 3) {
+            return 3 + 12 * (degree / 7);
+        }
+        else if (degree % 7 == 6) {
+            return 8 + 12 * (degree / 7);
+        }
+        else if (degree % 7 == 7) {
+            return 10 + 12 * (degree / 7);
+        }
+    }
+    else if (quality == Quality::augmented) {
+        if (degree % 7 == 4) {
+            return 6 + 12 * (degree / 7);
+        }
+    }
+    return 0;
+}
+
+Pitch Interval::getPitchFromRoot(Pitch root) 
+{
+    return Pitch(root.getMidiValue() + getSemitones());
+}
+
+std::string Interval::toString()
+{
+    std::string result = "";
+    switch (quality) {
+        case Quality::perfect:
+            result += "P";
+            break;
+        case Quality::minor:
+            result += "m";
+            break;
+        case Quality::major:
+            result += "M";
+            break;
+        case Quality::augmented:
+            result += "A";
+            break;
+        case Quality::dimished:
+            result += "d";
+            break;
+    }
+    result += std::to_string(degree);
+    return result;
+}
+
 } // namespace mt
