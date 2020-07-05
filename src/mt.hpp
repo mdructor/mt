@@ -32,10 +32,12 @@
 namespace mt
 {
 
-// primitive class used to hold "Key" information of a Pitch
+//! Primitive class used to hold the key type/name of a Pitch 
 class Key
 {
   public:
+
+    /** All of the different keys */
     enum class Type
     {
         A,
@@ -52,10 +54,10 @@ class Key
     std::string toString();
 
   private:
-    Type type;
+    Type type; //! Stores the current type/name of this key
 };
 
-// primitive class used to hold the type of Accidental a Pitch has
+//! Primitive class used to hold the type of Accidental a Pitch has
 class Accidental
 {
   public:
@@ -76,7 +78,7 @@ class Accidental
     Type type;
 };
 
-// class used to hold Pitch information.
+//! Class used to hold Pitch information.
 class Pitch
 {
   public:
@@ -97,6 +99,10 @@ class Pitch
     unsigned short octave;
 };
 
+//! Represents a generic interval.
+/*!
+  Purely based on semitones since there is no root being taken into account.
+*/
 class Interval
 {
   public:
@@ -122,6 +128,7 @@ class Interval
     unsigned short degree;
 };
 
+//! Holds a vector of intervals to form a generic scale.
 class Scale
 {
   public:
@@ -135,6 +142,7 @@ class Scale
     std::vector<Interval> intervals;
 };
 
+//! Holds a vector of intervals to form a generic scale.
 class Chord
 {
   public:
@@ -148,6 +156,11 @@ class Chord
     std::vector<Interval> intervals;
 };
 
+//! Exception for when a bad call for a new Pitch happens
+/*!
+  For example, asking for a Pitch out of range of the MIDI keyboard, 
+  or trying to parse a Pitch with a garbage string
+*/
 class PitchParsingException : public std::runtime_error
 {
   public:
@@ -156,6 +169,7 @@ class PitchParsingException : public std::runtime_error
     }
 };
 
+//! Exception for when a bad call for a new Interval happens
 class InvalidIntervalException : public std::runtime_error
 {
   public:
