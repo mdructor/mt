@@ -3,7 +3,7 @@ all: format run_tests
 format:
 	clang-format --verbose -i -style="{BasedOnStyle: Microsoft, IndentWidth: 4}" src/mt.cpp test/test.cpp src/mt.hpp
 
-docs:
+docs: src/mt.cpp src/mt.hpp
 	doxygen
 
 run_tests: tests
