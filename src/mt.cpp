@@ -27,16 +27,31 @@
 namespace mt
 {
 
+/**
+ * @brief Construct a new Key object
+ * 
+ * @param t Type of Key (A, B, C, etc)
+ */
 Key::Key(Key::Type t)
 {
     type = t;
 }
 
+/**
+ * @brief Returns the type of the Key
+ * 
+ * @return Key::Type 
+ */
 Key::Type Key::getType()
 {
     return type;
 }
 
+/**
+ * @brief Returns a string pertaining to the Key's name
+ * 
+ * @return std::string 1 letter string of the key's name
+ */
 std::string Key::toString()
 {
     switch (type)
@@ -59,16 +74,35 @@ std::string Key::toString()
     return "";
 }
 
+/**
+ * @brief Construct a new Accidental object
+ * 
+ * @details Default constructor gives natural
+ * 
+ * @param t Type of accidental
+ */
 Accidental::Accidental(Accidental::Type t)
 {
     type = t;
 }
 
+/**
+ * @brief Gives type of an Accidental
+ * 
+ * @return Accidental::Type natural, sharp, flat, etc
+ */
 Accidental::Type Accidental::getType()
 {
     return type;
 }
 
+/**
+ * @brief Gives string value of the Accidental
+ * 
+ * @details Returns empty string if natural. Used for constructing pitch strings
+ * 
+ * @return std::string 
+ */
 std::string Accidental::toString()
 {
     switch (type)
@@ -87,6 +121,13 @@ std::string Accidental::toString()
     return "";
 }
 
+/**
+ * @brief Construct a new Pitch:: Pitch object
+ * 
+ * @param k Key 
+ * @param a Accidental 
+ * @param o octave 
+ */
 Pitch::Pitch(Key k, Accidental a, unsigned short o)
 {
     key = k;
@@ -94,6 +135,13 @@ Pitch::Pitch(Key k, Accidental a, unsigned short o)
     octave = o;
 }
 
+/**
+ * @brief Construct a new Pitch:: Pitch object
+ * 
+ * @details Will throw a PitchParsingException if an invalid Pitch string is given
+ * 
+ * @param val Expects a valid Pitch string i.e "C#4"
+ */
 Pitch::Pitch(std::string val)
 {
     std::string error_string = "Failed to parse note: " + val;
@@ -187,6 +235,14 @@ Pitch::Pitch(std::string val)
     }
 }
 
+/**
+ * @brief Construct a Pitch object
+ * 
+ * @details Will throw PitchParsingException if midi value is out of range
+ * 
+ * @param midi_value valid MIDI value
+ * @param use_sharps choose whether to use sharps for flats for accidentals
+ */
 Pitch::Pitch(unsigned short midi_value, bool use_sharps)
 {
     std::string error_message = "Couldn't parse midi value to note: " + midi_value;
@@ -294,21 +350,41 @@ Pitch::Pitch(unsigned short midi_value, bool use_sharps)
     octave = (midi_value - 12) / 12;
 }
 
+/**
+ * @brief Returns Key object of the Pitch
+ * 
+ * @return Key 
+ */
 Key Pitch::getKey()
 {
     return key;
 }
 
+/**
+ * @brief Returns the Accidental object of the Pitch
+ * 
+ * @return Accidental 
+ */
 Accidental Pitch::getAccidental()
 {
     return accidental;
 }
 
+/**
+ * @brief Returns the octave of the Pitch
+ * 
+ * @return unsigned short 
+ */
 unsigned short Pitch::getOctave()
 {
     return octave;
 }
 
+/**
+ * @brief Calculates and returns the midi value of a Pitch
+ * 
+ * @return unsigned short valid midi value
+ */
 unsigned short Pitch::getMidiValue()
 {
     int midi_val;
@@ -357,16 +433,34 @@ unsigned short Pitch::getMidiValue()
     return midi_val;
 }
 
+/**
+ * @brief Calculates and returns the frequency of a Pitch in hz
+ * 
+ * @return double 
+ */
 double Pitch::getFrequency()
 {
     return std::pow(2, (getMidiValue() - 69) / 12.0) * 440;
 }
 
+/**
+ * @brief Returns the Pitch string, i.e "Bb3"
+ * 
+ * @return std::string Key Accidental Octave i.e "C#4"
+ */
 std::string Pitch::toString()
 {
     return key.toString() + accidental.toString() + std::to_string(octave);
 }
 
+/**
+ * @brief Construct a new Interval object
+ * 
+ * @details Throws InvalidIntervalException on bad construction calls
+ * 
+ * @param q Quality of the Interval
+ * @param d Degree of the Interval
+ */
 Interval::Interval(Quality q, unsigned short d)
 {
     std::string error_msg = "Invalid interval error. Need valid quality and degree";
@@ -402,6 +496,11 @@ Interval::Interval(Quality q, unsigned short d)
     }
 }
 
+/**
+ * @brief Construct a new Interval object from a semitone value
+ * 
+ * @param s Semitones away from a root
+ */
 Interval::Interval(unsigned short s)
 {
     auto r = s % 12;
@@ -460,16 +559,31 @@ Interval::Interval(unsigned short s)
     }
 }
 
+/**
+ * @brief Returns Quality object of an Interval
+ * 
+ * @return Interval::Quality 
+ */
 Interval::Quality Interval::getQuality()
 {
     return quality;
 }
 
+/**
+ * @brief Returns degree of an inerval
+ * 
+ * @return unsigned short 
+ */
 unsigned short Interval::getDegree()
 {
     return degree;
 }
 
+/**
+ * @brief Returns how many semitones away this Interval is from the root
+ * 
+ * @return unsigned short 
+ */
 unsigned short Interval::getSemitones()
 {
     if (quality == Quality::perfect)
@@ -535,11 +649,22 @@ unsigned short Interval::getSemitones()
     return 0;
 }
 
+/**
+ * @brief Returns Pitch that corresponds with this Interval from a given root
+ * 
+ * @param root Pitch that acts as a root for this Interval
+ * @return Pitch New Pitch from the root
+ */
 Pitch Interval::getPitchFromRoot(Pitch root)
 {
     return Pitch(root.getMidiValue() + getSemitones());
 }
 
+/**
+ * @brief Returns typical Interval markup string i.e "m3" is a minor 3rd
+ * 
+ * @return std::string 
+ */
 std::string Interval::toString()
 {
     std::string result = "";
