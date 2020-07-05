@@ -32,11 +32,10 @@
 namespace mt
 {
 
-//! Primitive class used to hold the key type/name of a Pitch 
+//! Primitive class used to hold the key type/name of a Pitch
 class Key
 {
   public:
-
     /** All of the different keys */
     enum class Type
     {
@@ -158,7 +157,7 @@ class Chord
 
 //! Exception for when a bad call for a new Pitch happens
 /*!
-  For example, asking for a Pitch out of range of the MIDI keyboard, 
+  For example, asking for a Pitch out of range of the MIDI keyboard,
   or trying to parse a Pitch with a garbage string
 */
 class PitchParsingException : public std::runtime_error
