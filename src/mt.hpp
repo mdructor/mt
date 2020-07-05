@@ -1,32 +1,32 @@
 /*
     MIT License
 
-    Copyright (c) 2020 Mason Dructor 
+    Copyright (c) 2020 Mason Dructor
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
+    of this software and associated documentation files (the "Software"), to
+   deal in the Software without restriction, including without limitation the
+   rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+   sell copies of the Software, and to permit persons to whom the Software is
     furnished to do so, subject to the following conditions:
 
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
+    The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
 
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
     AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+   IN THE SOFTWARE.
 */
 
 #pragma once
 
-#include <string>    // std::string
-#include <stdexcept> // std::runtime_error
 #include <cmath>     // std::pow
+#include <stdexcept> // std::runtime_error
+#include <string>    // std::string
 #include <vector>    // std::vector
 
 namespace mt
@@ -35,109 +35,133 @@ namespace mt
 // primitive class used to hold "Key" information of a Pitch
 class Key
 {
-    public:
-        enum class Type { A, B, C, D, E, F, G };
-        
-        Key (Type keyType = Type::C);
-        Type getType();
-        std::string toString();
+  public:
+    enum class Type
+    {
+        A,
+        B,
+        C,
+        D,
+        E,
+        F,
+        G
+    };
 
-    private:
-        Type type;
+    Key(Type keyType = Type::C);
+    Type getType();
+    std::string toString();
 
+  private:
+    Type type;
 };
-
 
 // primitive class used to hold the type of Accidental a Pitch has
 class Accidental
 {
-    public:
-        enum class Type { natural, flat, sharp, double_flat, double_sharp };
+  public:
+    enum class Type
+    {
+        natural,
+        flat,
+        sharp,
+        double_flat,
+        double_sharp
+    };
 
-        Accidental( Type t = Type::natural );
-        Type getType();
-        std::string toString();
-    
-    private:
-        Type type;
+    Accidental(Type t = Type::natural);
+    Type getType();
+    std::string toString();
+
+  private:
+    Type type;
 };
 
 // class used to hold Pitch information.
 class Pitch
 {
-    public:
-        Pitch( Key k = Key(Key::Type::C), Accidental a = Accidental(Accidental::Type::natural), unsigned short o = 4 );
-        Pitch( std::string val );
-        Pitch( unsigned short midi_value, bool use_sharps = true );
+  public:
+    Pitch(Key k = Key(Key::Type::C), Accidental a = Accidental(Accidental::Type::natural), unsigned short o = 4);
+    Pitch(std::string val);
+    Pitch(unsigned short midi_value, bool use_sharps = true);
 
-        Key getKey();
-        Accidental getAccidental();
-        unsigned short getOctave();
-        unsigned short getMidiValue();
-        double getFrequency();
-        std::string toString();
+    Key getKey();
+    Accidental getAccidental();
+    unsigned short getOctave();
+    unsigned short getMidiValue();
+    double getFrequency();
+    std::string toString();
 
-    private:
-        Key key;
-        Accidental accidental;
-        unsigned short octave;
+  private:
+    Key key;
+    Accidental accidental;
+    unsigned short octave;
 };
 
 class Interval
 {
-    public:
-        enum class Quality { perfect, major, minor, augmented, dimished };
-        Interval(Quality q = Quality::perfect, unsigned short degree = 1);
-        Interval(unsigned short semitones);
+  public:
+    enum class Quality
+    {
+        perfect,
+        major,
+        minor,
+        augmented,
+        dimished
+    };
+    Interval(Quality q = Quality::perfect, unsigned short degree = 1);
+    Interval(unsigned short semitones);
 
-        Quality getQuality();
-        unsigned short getDegree();
-        unsigned short getSemitones();
-        Pitch getPitchFromRoot(Pitch root);
-        std::string toString();
+    Quality getQuality();
+    unsigned short getDegree();
+    unsigned short getSemitones();
+    Pitch getPitchFromRoot(Pitch root);
+    std::string toString();
 
-    private:
-        Quality quality;
-        unsigned short degree;
-
+  private:
+    Quality quality;
+    unsigned short degree;
 };
 
-class Scale 
+class Scale
 {
-    public:
-        Scale(std::vector<Interval> intervals);
+  public:
+    Scale(std::vector<Interval> intervals);
 
-        std::vector<Interval> getIntervals();
-        
-        std::vector<Pitch> getPitchesFromRoot(Pitch root);
+    std::vector<Interval> getIntervals();
 
-    private:
-        std::vector<Interval> intervals;
+    std::vector<Pitch> getPitchesFromRoot(Pitch root);
+
+  private:
+    std::vector<Interval> intervals;
 };
 
 class Chord
 {
-    public:
-        Chord(std::vector<Interval> intervals);
+  public:
+    Chord(std::vector<Interval> intervals);
 
-        std::vector<Interval> getIntervals();
+    std::vector<Interval> getIntervals();
 
-        std::vector<Pitch> getPitchesFromRoot(Pitch root);
+    std::vector<Pitch> getPitchesFromRoot(Pitch root);
 
-    private:
-        std::vector<Interval> intervals;
+  private:
+    std::vector<Interval> intervals;
 };
 
 class PitchParsingException : public std::runtime_error
 {
-    public:
-        PitchParsingException(char const* const message) throw() : std::runtime_error(message) {}
+  public:
+    PitchParsingException(char const *const message) throw() : std::runtime_error(message)
+    {
+    }
 };
 
 class InvalidIntervalException : public std::runtime_error
 {
-    public:
-        InvalidIntervalException(char const* const message) throw() : std::runtime_error(message) {}
+  public:
+    InvalidIntervalException(char const *const message) throw() : std::runtime_error(message)
+    {
+    }
 };
 
 } // namespace mt
