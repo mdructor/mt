@@ -482,7 +482,7 @@ Interval::Interval(Quality q, unsigned short d)
     }
     else if (quality == Quality::major || quality == Quality::minor)
     {
-        if (!(degree % 7 == 2 || degree % 7 == 3 || degree % 7 == 6 || degree % 7 == 7))
+        if (!(degree % 7 == 2 || degree % 7 == 3 || degree % 7 == 6 || degree % 7 == 0))
         {
             throw InvalidIntervalException(error_msg.c_str());
         }
@@ -615,9 +615,9 @@ unsigned short Interval::getSemitones()
         {
             return 9 + 12 * (degree / 7);
         }
-        else if (degree % 7 == 7)
+        else if (degree % 7 == 0)
         {
-            return 11 + 12 * (degree / 7);
+            return 11 + 12 * ((degree / 7) - 1);
         }
     }
     else if (quality == Quality::minor)
@@ -634,9 +634,9 @@ unsigned short Interval::getSemitones()
         {
             return 8 + 12 * (degree / 7);
         }
-        else if (degree % 7 == 7)
+        else if (degree % 7 == 0)
         {
-            return 10 + 12 * (degree / 7);
+            return 10 + 12 * ((degree / 7) - 1);
         }
     }
     else if (quality == Quality::augmented)
