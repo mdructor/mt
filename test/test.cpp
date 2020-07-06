@@ -84,3 +84,13 @@ TEST_CASE("Intervals can be compound!", "[Interval]")
     REQUIRE(i.getPitchFromRoot(mt::Pitch()).toString() == "D5");
     REQUIRE(i.toString() == "M9");
 }
+
+TEST_CASE("Interval convencience constants can be used", "[Interval]")
+{
+    REQUIRE(mt::Intervals::M2.getSemitones() == 2);
+    REQUIRE(mt::Intervals::m3.getSemitones() == 3);
+    REQUIRE(mt::Intervals::A4.getSemitones() == 6);
+    REQUIRE(mt::Intervals::P5.getSemitones() == 7);
+    REQUIRE(mt::Intervals::M7.getSemitones() == 11);
+    REQUIRE(mt::Intervals::m2.getPitchFromRoot(mt::Pitch()).toString() == "C#4");
+}
