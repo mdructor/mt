@@ -177,4 +177,25 @@ class InvalidIntervalException : public std::runtime_error
     }
 };
 
+/**
+ * @brief Simple intervals for convenience
+ *
+ */
+namespace Intervals
+{
+extern Interval P1;
+extern Interval m2;
+extern Interval M2;
+extern Interval m3;
+extern Interval M3;
+extern Interval P4;
+extern Interval A4;
+extern Interval P5;
+extern Interval m6;
+extern Interval M6;
+extern Interval m7;
+extern Interval M7;
+extern Interval P8;
+} // namespace Intervals
+
 } // namespace mt
